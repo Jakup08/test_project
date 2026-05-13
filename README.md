@@ -1,2 +1,2 @@
 # test_project
-test
+wpisujemy informacje o projekcie, co chcemy uzyskać w pozniejszych etapach pracy
