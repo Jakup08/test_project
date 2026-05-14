@@ -4,7 +4,113 @@ Simple overview of use/purpose.
 
 ## Description
 
-An in-depth paragraph about your project and overview of use.
+# Organizator plików w Pythonie
+
+## Opis projektu
+Projekt polega na automatycznym kategoryzowaniu plików na podstawie ich rozszerzeń i przenoszeniu ich do odpowiednich katalogów.  
+Program analizuje pliki znajdujące się w wybranym folderze, rozpoznaje ich typ, a następnie umieszcza je w odpowiednich podfolderach.
+
+---
+
+# Określenie typów plików
+
+Program rozpoznaje różne typy plików na podstawie ich rozszerzeń.  
+Każdy typ pliku zostaje przypisany do odpowiedniej kategorii.
+
+## Typy obsługiwanych plików
+
+### Dokumenty
+Pliki tekstowe oraz biurowe używane do przechowywania informacji i dokumentacji.
+
+**Rozszerzenia:**
+- `.txt`
+- `.doc`
+- `.docx`
+- `.pdf`
+- `.odt`
+
+---
+
+### Obrazy
+Pliki graficzne wykorzystywane do przechowywania zdjęć i grafik.
+
+**Rozszerzenia:**
+- `.jpg`
+- `.jpeg`
+- `.png`
+- `.gif`
+- `.bmp`
+- `.svg`
+
+---
+
+### Muzyka
+Pliki audio zawierające muzykę lub nagrania dźwiękowe.
+
+**Rozszerzenia:**
+- `.mp3`
+- `.wav`
+- `.flac`
+- `.aac`
+
+---
+
+### Wideo
+Pliki multimedialne zawierające obraz i dźwięk.
+
+**Rozszerzenia:**
+- `.mp4`
+- `.avi`
+- `.mkv`
+- `.mov`
+
+---
+
+### Archiwa
+Pliki służące do kompresji danych i przechowywania wielu plików w jednym archiwum.
+
+**Rozszerzenia:**
+- `.zip`
+- `.rar`
+- `.7z`
+- `.tar`
+
+---
+
+### Programowanie
+Pliki związane z kodem źródłowym i projektami programistycznymi.
+
+**Rozszerzenia:**
+- `.py`
+- `.js`
+- `.html`
+- `.css`
+- `.cpp`
+- `.java`
+
+---
+
+### Inne
+Pliki o nierozpoznanych rozszerzeniach trafiają do katalogu `Inne`.
+
+---
+
+# Określenie typów i nazw katalogów
+
+Program tworzy odpowiednie katalogi i przenosi do nich pliki zgodnie z ich kategorią.
+
+## Struktura katalogów
+
+```text
+Projekt/
+│
+├── Dokumenty/
+├── Obrazy/
+├── Muzyka/
+├── Wideo/
+├── Archiwa/
+├── Programowanie/
+└── Inne/
 
 ## Getting Started
 
