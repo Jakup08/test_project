@@ -1,168 +1,172 @@
-# Project Title
+# 🎬 Media File Sorter
 
-Simple overview of use/purpose.
+Profesjonalne narzędzie do automatycznego sortowania i organizacji multimediów. Sortuje pliki wideo, audio i fotografie do oddzielnych katalogów na podstawie rozszerzenia.
 
-## Description
+## ✨ Główne cechy
 
-# Organizator plików w Pythonie
+- 🎯 **26+ rozszerzeń** - Obsługuje video, audio i fotografie
+- 📊 **Szczegółowe statystyki** - Raport liczby i rozmiaru plików
+- 💾 **Format rozmiarów** - Automatyczne skalowanie (B, KB, MB, GB, TB)
+- 🔄 **Rekurencyjne przeszukiwanie** - Opcja dla podkatalogów
+- 🛡️ **Bezpieczne** - Obsługa błędów dla każdego pliku
+- ⚡ **Szybkie** - Jedno polecenie do uruchomienia
+- 📁 **Organizacja** - Każde rozszerzenie w osobnym folderze
 
-## Opis projektu
-Projekt polega na automatycznym kategoryzowaniu plików na podstawie ich rozszerzeń i przenoszeniu ich do odpowiednich katalogów.  
-Program analizuje pliki znajdujące się w wybranym folderze, rozpoznaje ich typ, a następnie umieszcza je w odpowiednich podfolderach.
+## 📦 Obsługiwane typy plików
 
----
+### 🎥 Video
+`.mp4` `.mkv` `.avi` `.mov` `.flv` `.dav` `.webm` `.m4v`
 
-# Określenie typów plików
+### 🎵 Audio
+`.mp3` `.wav` `.aac` `.flac` `.m4a` `.ogg` `.wma` `.opus`
 
-Program rozpoznaje różne typy plików na podstawie ich rozszerzeń.  
-Każdy typ pliku zostaje przypisany do odpowiedniej kategorii.
+### 📸 Fotografie
+`.jpg` `.jpeg` `.png` `.gif` `.bmp` `.webp` `.tiff` `.heic` `.raw`
 
-## Typy obsługiwanych plików
+## 🚀 Szybki start
 
-### Dokumenty
-Pliki tekstowe oraz biurowe używane do przechowywania informacji i dokumentacji.
+### Wymagania
+- Python 3.6+ (brak dodatkowych zależności)
+- Uprawnienia do czytania/pisania w katalogach
 
-**Rozszerzenia:**
-- `.txt`
-- `.doc`
-- `.docx`
-- `.pdf`
-- `.odt`
+### Instalacja
+```bash
+git clone https://github.com/Jakup08/test_project.git
+cd test_project
+```
 
----
+## 💡 Przykłady użycia
 
-### Obrazy
-Pliki graficzne wykorzystywane do przechowywania zdjęć i grafik.
+### 1. Sortuj z domyślnymi ustawieniami
+```bash
+python sorter.py
+```
+Sortuje z `sample_files/` do `multimedialne/`
 
-**Rozszerzenia:**
-- `.jpg`
-- `.jpeg`
-- `.png`
-- `.gif`
-- `.bmp`
-- `.svg`
+### 2. Własne katalogi
+```bash
+python sorter.py --src ~/Downloads --dest ~/Media
+```
 
----
+### 3. Rekurencyjne (przeszukuj podkatalogi)
+```bash
+python sorter.py --recursive
+```
 
-### Muzyka
-Pliki audio zawierające muzykę lub nagrania dźwiękowe.
+### 4. Tylko określone rozszerzenia
+```bash
+python sorter.py --exts mp4 mkv wav mp3
+```
 
-**Rozszerzenia:**
-- `.mp3`
-- `.wav`
-- `.flac`
-- `.aac`
+### 5. Utwórz pliki testowe
+```bash
+python sorter.py --test-create
+```
 
----
+### 6. Wyświetl dostępne typy
+```bash
+python sorter.py --list-types
+```
 
-### Wideo
-Pliki multimedialne zawierające obraz i dźwięk.
+## 📖 Opcje wiersza poleceń
 
-**Rozszerzenia:**
-- `.mp4`
-- `.avi`
-- `.mkv`
-- `.mov`
+| Opcja | Opis | Domyślnie |
+|-------|------|----------|
+| `--src` | Katalog źródłowy | `sample_files` |
+| `--dest` | Katalog docelowy | `multimedialne` |
+| `--exts` | Lista rozszerzeń | Wszystkie (26+) |
+| `--recursive` | Przeszukuj podkatalogi | Nie |
+| `--test-create` | Utwórz pliki testowe | - |
+| `--list-types` | Wyświetl dostępne typy | - |
 
----
+## 🔧 Scenariusze
 
-### Archiwa
-Pliki służące do kompresji danych i przechowywania wielu plików w jednym archiwum.
+### Scenario 1: Sortowanie Downloads
+```bash
+python sorter.py --src ~/Downloads --dest ~/MediaLibrary --recursive
+```
 
-**Rozszerzenia:**
-- `.zip`
-- `.rar`
-- `.7z`
-- `.tar`
+### Scenario 2: Test z przykładowymi plikami
+```bash
+# 1. Utwórz pliki testowe
+python sorter.py --test-create
 
----
+# 2. Sortuj je
+python sorter.py
 
-### Programowanie
-Pliki związane z kodem źródłowym i projektami programistycznymi.
+# 3. Sprawdź strukturę
+tree multimedialne/
+```
 
-**Rozszerzenia:**
-- `.py`
-- `.js`
-- `.html`
-- `.css`
-- `.cpp`
-- `.java`
+**Wynik:**
+```
+multimedialne/
+├── MP4/
+│   └── video1.mp4
+├── WAV/
+│   └── music.wav
+├── JPG/
+│   └── photo1.jpg
+└── ...
+```
 
----
+## 📂 Struktura projektu
 
-### Inne
-Pliki o nierozpoznanych rozszerzeniach trafiają do katalogu `Inne`.
-
----
-
-# Określenie typów i nazw katalogów
-
-Program tworzy odpowiednie katalogi i przenosi do nich pliki zgodnie z ich kategorią.
-
-## Struktura katalogów
-
-```text
-Projekt/
+```
+test_project/
+├── sorter.py                    # ✨ GŁÓWNY PLIK (scalony)
+├── README.md                    # Dokumentacja
+├── sample_files/                # Przykładowe pliki
+├── multimedialne/               # Wynik sortowania
 │
-├── Dokumenty/
-├── Obrazy/
-├── Muzyka/
-├── Wideo/
-├── Archiwa/
-├── Programowanie/
-└── Inne/
-
-## Getting Started
-
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
+└── sorter/                      # Katalog PoC-ów (archiwum)
+    ├── poc_mp4.py               # PoC 1: tylko .mp4
+    ├── poc_multi.py             # PoC 2: wiele rozszerzeń
+    ├── poc_large_multi.py       # PoC 3: duże pliki + statystyki
+    └── create_test_files.py     # Generator testów
 ```
 
-## Help
+## 🐛 Troubleshooting
 
-Any advise for common problems or issues.
+### "Katalog nie istnieje"
+```bash
+ls -la /path/to/directory
 ```
-command to run if program contains helper info
+
+### "Permission denied"
+```bash
+chmod +x sorter.py
 ```
 
-## Authors
+### Pliki nie były sortowane
+```bash
+python sorter.py --list-types
+```
 
-Contributors names and contact info
+## 💡 Wskazówki
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+✅ Zawsze rób kopię zapasową przed sortowaniem  
+✅ Uruchom z `--test-create` najpierw  
+✅ Używaj `--recursive` ostrożnie  
+✅ Format rozmiarów automatycznie się dostosowuje  
 
-## Version History
+## 📝 Notatki
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+- ✓ Czysty Python 3.6+ - brak zależności
+- ✓ Bezpieczne dla dużych plików
+- ✓ Obsługuje znaki diakrytyczne
+- ✓ Pliki są **przenoszące** (nie kopiowane)
+- ✓ Tworzy katalogi jeśli nie istnieją
 
-## License
+## 📄 Licencja
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+MIT
 
-## Acknowledgments
+## 👤 Autor
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+Jakup08 - 2026
+
+---
+
+**Ostatnia aktualizacja:** 2026-05-18  
+**Wersja:** 1.0.0 (scalony POC)
