@@ -9,14 +9,23 @@ from pathlib import Path
 from typing import Dict, List
 import os
 
-# Wszystkie wspólne rozszerzenia multimedialne
-EXTENSIONS = {
-    "video": [".mp4", ".mkv", ".avi", ".mov", ".flv", ".dav", ".webm", ".m4v"],
-    "audio": [".mp3", ".wav", ".aac", ".flac", ".m4a", ".ogg", ".wma", ".opus"],
-    "photo": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff", ".heic", ".raw"],
+# Mapowanie kategorii -> rozszerzenia (KATEGORYZACJA)
+CATEGORIES = {
+    "video": [".mp4", ".mkv", ".avi", ".mov", ".flv", ".dav", ".webm", ".m4v", ".wmv", ".3gp", ".m3u8"],
+    "audio": [".mp3", ".wav", ".aac", ".flac", ".m4a", ".ogg", ".wma", ".opus", ".alac", ".aiff"],
+    "obrazy": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".tiff", ".heic", ".raw", ".svg", ".ico", ".psd"],
+    "dokumenty": [".pdf", ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt", ".txt", ".odt", ".rtf", ".csv", ".json", ".xml"],
+    "archiwum": [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".iso", ".dmg"],
+    "kod": [".py", ".js", ".ts", ".java", ".cpp", ".c", ".h", ".html", ".css", ".php", ".go", ".rs", ".rb", ".sh"],
 }
 
-DEFAULT_EXTS = [ext for exts in EXTENSIONS.values() for ext in exts]
+# Reverse mapping: rozszerzenie -> kategoria
+EXT_TO_CATEGORY = {}
+for category, exts in CATEGORIES.items():
+    for ext in exts:
+        EXT_TO_CATEGORY[ext.lower()] = category
+
+DEFAULT_EXTS = list(EXT_TO_CATEGORY.keys())
 
 
 def format_size(bytes_size: int) -> str:
@@ -29,11 +38,11 @@ def format_size(bytes_size: int) -> str:
 
 
 def sort_files(src: Path, dest: Path, exts: List[str], recursive: bool = False) -> Dict:
-    """Sortuj pliki i zwróć statystyki"""
+    """Sortuj pliki do kategorii i zwróć statystyki"""
     stats = {
         "total_moved": 0,
         "total_size": 0,
-        "by_extension": {},
+        "by_category": {},
         "errors": []
     }
 
@@ -57,23 +66,26 @@ def sort_files(src: Path, dest: Path, exts: List[str], recursive: bool = False) 
         try:
             file_size = f.stat().st_size
             
-            # Utwórz podkatalog dla rozszerzenia (UPPER bez punktu)
-            ext_dest = dest / suffix[1:].upper()
-            ext_dest.mkdir(parents=True, exist_ok=True)
+            # Pobierz kategorię dla rozszerzenia
+            category = EXT_TO_CATEGORY.get(suffix, "inne")
+            
+            # Utwórz podkatalog dla kategorii
+            category_dest = dest / category
+            category_dest.mkdir(parents=True, exist_ok=True)
             
             # Przenieś plik
-            new_path = ext_dest / f.name
+            new_path = category_dest / f.name
             shutil.move(str(f), str(new_path))
             
             # Zaktualizuj statystyki
             stats["total_moved"] += 1
             stats["total_size"] += file_size
-            if suffix not in stats["by_extension"]:
-                stats["by_extension"][suffix] = {"count": 0, "size": 0}
-            stats["by_extension"][suffix]["count"] += 1
-            stats["by_extension"][suffix]["size"] += file_size
+            if category not in stats["by_category"]:
+                stats["by_category"][category] = {"count": 0, "size": 0}
+            stats["by_category"][category]["count"] += 1
+            stats["by_category"][category]["size"] += file_size
             
-            print(f"  ✓ {f.name} ({format_size(file_size)}) → {ext_dest.name}/")
+            print(f"  ✓ {f.name} ({format_size(file_size)}) → {category}/")
             
         except Exception as e:
             stats["errors"].append(str(e))
@@ -90,12 +102,12 @@ def print_summary(stats: Dict):
     print(f"✓ Przeniesiono: {stats['total_moved']} plik(ów)")
     print(f"💾 Całkowity rozmiar: {format_size(stats['total_size'])}")
     
-    if stats["by_extension"]:
-        print("\n📂 Statystyki po rozszerzeniu:")
-        for ext, data in sorted(stats["by_extension"].items()):
+    if stats["by_category"]:
+        print("\n📂 Statystyki po kategorii:")
+        for category, data in sorted(stats["by_category"].items()):
             count_str = f"{data['count']:3}"
             size_str = format_size(data['size']).rjust(12)
-            print(f"  {ext:10} → {count_str} plik(ów) | {size_str}")
+            print(f"  {category:15} → {count_str} plik(ów) | {size_str}")
     
     if stats["errors"]:
         print(f"\n⚠️  Błędy ({len(stats['errors'])}):")
@@ -106,24 +118,47 @@ def print_summary(stats: Dict):
 
 
 def create_test_files(dest: Path = Path("sample_files")):
-    """Utwórz przykładowe pliki multimedialne do testowania"""
+    """Utwórz przykładowe pliki z wielu kategorii do testowania"""
     dest.mkdir(exist_ok=True)
     
     test_files = {
-        "video1.mp4": 1024 * 100,           # 100 KB
-        "video2.mkv": 1024 * 500,           # 500 KB
-        "recording.dav": 1024 * 1024,       # 1 MB
-        "photo1.jpg": 1024 * 50,            # 50 KB
-        "photo2.png": 1024 * 80,            # 80 KB
-        "screenshot.heic": 1024 * 60,       # 60 KB
-        "audio.mp3": 1024 * 200,            # 200 KB
-        "music.wav": 1024 * 1024 * 5,       # 5 MB
+        # VIDEO
+        "film1.mp4": 1024 * 100,
+        "film2.mkv": 1024 * 500,
+        "recording.dav": 1024 * 1024,
+        "video.avi": 1024 * 300,
+        # AUDIO
+        "piosenka.mp3": 1024 * 200,
+        "muzyka.wav": 1024 * 1024 * 5,
+        "audio.aac": 1024 * 150,
+        "track.flac": 1024 * 1024 * 3,
+        # OBRAZY
+        "foto1.jpg": 1024 * 50,
+        "zdjecie.png": 1024 * 80,
+        "screenshot.heic": 1024 * 60,
+        "obraz.gif": 1024 * 100,
+        "ikona.webp": 1024 * 30,
+        # DOKUMENTY
+        "raport.pdf": 1024 * 200,
+        "dokument.docx": 1024 * 150,
+        "arkusz.xlsx": 1024 * 120,
+        "prezentacja.pptx": 1024 * 300,
+        "notatka.txt": 1024 * 10,
+        # ARCHIWUM
+        "pliki.zip": 1024 * 1024 * 2,
+        "backup.rar": 1024 * 1024 * 3,
+        "archiwum.7z": 1024 * 1024,
+        # KOD
+        "skrypt.py": 1024 * 50,
+        "aplikacja.js": 1024 * 80,
+        "strona.html": 1024 * 40,
+        "style.css": 1024 * 30,
     }
     
-    print("📝 Tworzę pliki testowe...\n")
+    print("📝 Tworzę pliki testowe z wielu kategorii...\n")
     for filename, size in test_files.items():
         filepath = dest / filename
-        if not filepath.exists():  # Nie nadpisuj istniejących
+        if not filepath.exists():
             with open(filepath, 'wb') as f:
                 f.write(os.urandom(size))
             print(f"  ✓ {filename} ({size // 1024} KB)")
@@ -134,10 +169,10 @@ def create_test_files(dest: Path = Path("sample_files")):
 
 
 def list_extensions():
-    """Wyświetl dostępne typy plików"""
-    print("\n📋 DOSTĘPNE TYPY PLIKÓW\n")
-    for category, exts in EXTENSIONS.items():
-        print(f"🎬 {category.upper()}:")
+    """Wyświetl dostępne kategorie i rozszerzenia"""
+    print("\n📋 DOSTĘPNE KATEGORIE I ROZSZERZENIA\n")
+    for category, exts in sorted(CATEGORIES.items()):
+        print(f"📁 {category.upper()}:")
         ext_str = "  " + ", ".join(sorted(exts))
         print(f"{ext_str}\n")
 

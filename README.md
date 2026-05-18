@@ -1,27 +1,37 @@
 # 🎬 Media File Sorter
 
-Profesjonalne narzędzie do automatycznego sortowania i organizacji multimediów. Sortuje pliki wideo, audio i fotografie do oddzielnych katalogów na podstawie rozszerzenia.
+Profesjonalne narzędzie do automatycznego sortowania i organizacji plików według kategorii. Sortuje pliki video, audio, obrazy, dokumenty, kod i archiwa do oddzielnych katalogów na podstawie rozszerzenia.
 
 ## ✨ Główne cechy
 
-- 🎯 **26+ rozszerzeń** - Obsługuje video, audio i fotografie
-- 📊 **Szczegółowe statystyki** - Raport liczby i rozmiaru plików
+- 🎯 **68+ rozszerzeń** - Video, audio, obrazy, dokumenty, kod, archiwa
+- 📊 **Kategorie zamiast rozszerzeń** - Łatwa organizacja (obrazy/ dokumenty/ video/ itp.)
+- 📋 **Szczegółowe statystyki** - Raport liczby i rozmiaru plików po kategoriach
 - 💾 **Format rozmiarów** - Automatyczne skalowanie (B, KB, MB, GB, TB)
 - 🔄 **Rekurencyjne przeszukiwanie** - Opcja dla podkatalogów
 - 🛡️ **Bezpieczne** - Obsługa błędów dla każdego pliku
 - ⚡ **Szybkie** - Jedno polecenie do uruchomienia
-- 📁 **Organizacja** - Każde rozszerzenie w osobnym folderze
+- 📁 **Inteligentna organizacja** - Każda kategoria w osobnym folderze
 
-## 📦 Obsługiwane typy plików
+## 📦 Obsługiwane kategorie i rozszerzenia
 
 ### 🎥 Video
-`.mp4` `.mkv` `.avi` `.mov` `.flv` `.dav` `.webm` `.m4v`
+`.mp4` `.mkv` `.avi` `.mov` `.flv` `.dav` `.webm` `.m4v` `.wmv` `.3gp` `.m3u8`
 
 ### 🎵 Audio
-`.mp3` `.wav` `.aac` `.flac` `.m4a` `.ogg` `.wma` `.opus`
+`.mp3` `.wav` `.aac` `.flac` `.m4a` `.ogg` `.wma` `.opus` `.alac` `.aiff`
 
-### 📸 Fotografie
-`.jpg` `.jpeg` `.png` `.gif` `.bmp` `.webp` `.tiff` `.heic` `.raw`
+### 📸 Obrazy
+`.jpg` `.jpeg` `.png` `.gif` `.bmp` `.webp` `.tiff` `.heic` `.raw` `.svg` `.ico` `.psd`
+
+### 📄 Dokumenty
+`.pdf` `.docx` `.doc` `.xlsx` `.xls` `.pptx` `.ppt` `.txt` `.odt` `.rtf` `.csv` `.json` `.xml`
+
+### 📦 Archiwa
+`.zip` `.rar` `.7z` `.tar` `.gz` `.bz2` `.iso` `.dmg`
+
+### 💻 Kod
+`.py` `.js` `.ts` `.java` `.cpp` `.c` `.h` `.html` `.css` `.php` `.go` `.rs` `.rb` `.sh`
 
 ## 🚀 Szybki start
 
@@ -74,10 +84,10 @@ python sorter.py --list-types
 |-------|------|----------|
 | `--src` | Katalog źródłowy | `sample_files` |
 | `--dest` | Katalog docelowy | `multimedialne` |
-| `--exts` | Lista rozszerzeń | Wszystkie (26+) |
+| `--exts` | Lista rozszerzeń do sortowania | Wszystkie (68+) |
 | `--recursive` | Przeszukuj podkatalogi | Nie |
-| `--test-create` | Utwórz pliki testowe | - |
-| `--list-types` | Wyświetl dostępne typy | - |
+| `--test-create` | Utwórz pliki testowe z wielu kategorii | - |
+| `--list-types` | Wyświetl dostępne kategorie i rozszerzenia | - |
 
 ## 🔧 Scenariusze
 
@@ -101,13 +111,22 @@ tree multimedialne/
 **Wynik:**
 ```
 multimedialne/
-├── MP4/
-│   └── video1.mp4
-├── WAV/
-│   └── music.wav
-├── JPG/
-│   └── photo1.jpg
-└── ...
+├── video/
+│   ├── film.mp4
+│   ├── film.mkv
+│   └── recording.dav
+├── audio/
+│   ├── piosenka.mp3
+│   └── muzyka.wav
+├── obrazy/
+│   ├── foto.jpg
+│   └── zdjecie.png
+├── dokumenty/
+│   └── dokument.pdf
+├── archiwum/
+│   └── pliki.zip
+└── kod/
+    └── skrypt.py
 ```
 
 ## 📂 Struktura projektu
