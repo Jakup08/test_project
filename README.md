@@ -51,7 +51,7 @@ cd test_project
 ```bash
 python sorter.py
 ```
-Sortuje z `sample_files/` do `multimedialne/`
+Sortuje z `sample_files/` do `sorted_media/`
 
 ### 2. Własne katalogi
 ```bash
@@ -81,9 +81,8 @@ python sorter.py --list-types
 ## 📖 Opcje wiersza poleceń
 
 | Opcja | Opis | Domyślnie |
-|-------|------|----------|
 | `--src` | Katalog źródłowy | `sample_files` |
-| `--dest` | Katalog docelowy | `multimedialne` |
+| `--dest` | Katalog docelowy | `sorted_media` |
 | `--exts` | Lista rozszerzeń do sortowania | Wszystkie (68+) |
 | `--recursive` | Przeszukuj podkatalogi | Nie |
 | `--test-create` | Utwórz pliki testowe z wielu kategorii | - |
@@ -105,12 +104,12 @@ python sorter.py --test-create
 python sorter.py
 
 # 3. Sprawdź strukturę
-tree multimedialne/
+tree sorted_media/
 ```
 
 **Wynik:**
 ```
-multimedialne/
+sorted_media/
 ├── video/
 │   ├── film.mp4
 │   ├── film.mkv

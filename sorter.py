@@ -205,8 +205,8 @@ PRZYKŁADY:
     
     parser.add_argument("--src", default="sample_files", 
                        help="katalog źródłowy (default: sample_files)")
-    parser.add_argument("--dest", default="multimedialne", 
-                       help="katalog docelowy (default: multimedialne)")
+    parser.add_argument("--dest", default="sorted_media", 
+                       help="katalog docelowy (default: sorted_media)")
     parser.add_argument("--exts", nargs="*", default=DEFAULT_EXTS,
                        help="lista rozszerzeń do sortowania")
     parser.add_argument("--recursive", action="store_true",
