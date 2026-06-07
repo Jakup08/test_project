@@ -1,3 +1,0 @@
-# Notatki
-
-Przykładowy plik Markdown.

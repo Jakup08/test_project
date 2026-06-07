@@ -1,1 +1,1 @@
-console.log('Sample JavaScript file');
+// test js file

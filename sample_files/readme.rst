@@ -1,1 +1,0 @@
-Sample reStructuredText file.
